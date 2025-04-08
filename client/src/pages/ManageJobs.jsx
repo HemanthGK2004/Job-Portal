@@ -1,0 +1,49 @@
+import moment from 'moment'
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import { manageJobsData } from '../assets/assets'
+
+
+const ManageJobs = () => {
+  const navigate = useNavigate();
+  return (
+    <div className='container max-w-5xl p-4'>
+      <div className='overflow-x-auto'>
+        <table className='min-w-full bg-white border border-gray-200 max-sm:text-sm'>
+          <thead>
+
+            <tr>
+              <th className='px-4 py-2 text-left border-b max-sm:hidden'>#</th>
+              <th className='px-4 py-2 text-left border-b'>Job Title</th>
+              <th className='px-4 py-2 text-left border-b max-sm:hidden'>Date</th>
+              <th className='px-4 py-2 text-left border-b max-sm:hidden'>Location</th>
+              <th className='px-4 py-2 text-center border-b'>Applicants</th>
+              <th className='px-4 py-2 text-left border-b'>Visible Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {manageJobsData.map((job, index) => (
+              <tr key={index} className='text-gray-700 hover:bg-gray-100'>
+                <td className='px-4 py-2 border-b max-sm:hidden'>{index + 1}</td>
+                <td className='px-4 py-2 border-b'>{job.title}</td>
+                <td className='px-4 py-2 border-b max-sm:hidden'>{moment(job.date).format('ll')}</td>
+                <td className='px-4 py-2 border-b max-sm:hidden'>{job.location}</td>
+                <td className='px-4 py-2 text-center border-b'>{job.applicants}</td>
+                <td>
+                  <input className='ml-4 scale-125' type="checkbox" />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className='flex justify-end mt-5'>
+        <button onClick={()=>navigate('/dashboard/add-job')}  className='px-4 py-3 bg-blue-600 border border-black rounded-lg'> Add New Job</button>
+      </div>
+
+      
+    </div>
+  )
+}
+
+export default ManageJobs
