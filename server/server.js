@@ -4,8 +4,6 @@ import 'dotenv/config';
 import express from 'express';
 import connectDB from './config/db.js';
 import './config/instrument.js';
-import * as Sentry from "@sentry/node";
-
 import { clerkWebhook } from './controllers/webHooks.js';
 
 const app = express();
