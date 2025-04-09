@@ -24,7 +24,6 @@ export const clerkWebhook = async (req, res) => {
                     name: `${data.first_name} ${data.last_name}`,
                     email: data.email_addresses[0]?.email_address || '',
                     image: data.profile_image_url || '',
-                    password: '', // ⚠️ You shouldn't use Clerk password here (you don’t get it)
                     resume: ''
                 };
                 await User.create(userData);
