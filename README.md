@@ -78,15 +78,6 @@ A full-stack Job Portal application featuring a modern React frontend (using Vit
 
 ---
 
-## Screenshots
-
-<!-- Add your screenshots here, or describe how users can add them. For example: -->
-| Home Page | Job Listings | Admin Dashboard |
-|:---------:|:------------:|:---------------:|
-| ![Home](client/public/images/) | ![Jobs](screenshots/jobs.png) | ![Dashboard](screenshots/dashboard.png) |
-
----
-
 ## Project Structure
 
 ```
