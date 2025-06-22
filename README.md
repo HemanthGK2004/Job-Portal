@@ -10,7 +10,7 @@ A full-stack Job Portal application built with the **MERN stack** (MongoDB, Expr
 
 ### Landing Page
 
-![Landing Page](file-QwDEm4hUNXhXPB5uhW3wqu)
+![Landing Page](F:\NewProject\client\public\images\landing.png)
 
 This screenshot showcases the main jobs dashboard on Insiderjobs. At the top, there's a prominent search section with a purple background encouraging users to "Find Your Dream Job" and providing fields to search by job title and location. Below, several well-known company logos (Microsoft, Walmart, Accenture, Samsung, Amazon, Adobe) are shown as trusted partners.
 
