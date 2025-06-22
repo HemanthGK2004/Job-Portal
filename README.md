@@ -10,6 +10,12 @@ A full-stack Job Portal application featuring a modern React frontend (using Vit
 
 ---
 
+## ✨ Overview
+
+**Job Portal** is a robust recruitment platform built with a React + Vite frontend and a scalable Express.js + MongoDB backend. Designed for both employers and job seekers, it provides a seamless experience for posting jobs, managing applications, and exploring career opportunities. The app emphasizes security, performance, and an attractive, responsive UI.
+
+---
+
 ## Table of Contents
 
 - [Features](#features)
