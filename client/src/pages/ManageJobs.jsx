@@ -1,12 +1,74 @@
+import axios from 'axios'
 import moment from 'moment'
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { manageJobsData } from '../assets/assets'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
+import Loading from '../components/Loading'
+import { AppContext } from '../context/AppContext'
 
 
 const ManageJobs = () => {
   const navigate = useNavigate();
-  return (
+
+  const [jobs,setJobs]=useState(false)
+  const {backendUrl,companyToken}=useContext(AppContext)
+
+  //Function to fetch copamy data
+  const fetchCompanyJobs = async () => {
+    try {
+      const {data}= await axios.get(backendUrl + '/api/company/list-jobs',{
+        headers:{
+          Authorization: `Bearer ${companyToken}`
+        }
+      })
+      if(data.success){
+        setJobs(data.jobsData.reverse())
+        console.log("Company jobs fetched successfully:", data.jobsData);
+      }
+      else{
+        toast.error(data.message)
+      }
+    }
+    catch(err){
+      toast.error(err.message)
+    }
+  }
+
+  //function to change job visibility
+  const changeJobVisibility = async (id) => {
+    try {
+      const {data} = await axios.post(backendUrl + '/api/company/change-visibility',{
+        id
+      },{
+        headers:{
+          Authorization: `Bearer ${companyToken}`
+        }
+      })
+      if(data.success){
+        toast.success(data.message)
+        fetchCompanyJobs()
+      }
+      else{
+        toast.error(data.message)
+      }
+    }
+    catch(err){
+      toast.error(err.message)
+    }
+  }
+      
+
+  useEffect(() => {
+    if(companyToken){
+      fetchCompanyJobs()
+    }
+  }
+  ,[companyToken])
+  return jobs ?  jobs.length===0 ? (<div className='flex items-center justify-center min-h-[65vh]'>
+    <p className='text-xl sm:text-2xl'>No Jobs Available or Posted</p>
+  </div>):(
     <div className='container max-w-5xl p-4'>
       <div className='overflow-x-auto'>
         <table className='min-w-full bg-white border border-gray-200 max-sm:text-sm'>
@@ -22,7 +84,7 @@ const ManageJobs = () => {
             </tr>
           </thead>
           <tbody>
-            {manageJobsData.map((job, index) => (
+            {jobs.map((job, index) => (
               <tr key={index} className='text-gray-700 hover:bg-gray-100'>
                 <td className='px-4 py-2 border-b max-sm:hidden'>{index + 1}</td>
                 <td className='px-4 py-2 border-b'>{job.title}</td>
@@ -30,7 +92,12 @@ const ManageJobs = () => {
                 <td className='px-4 py-2 border-b max-sm:hidden'>{job.location}</td>
                 <td className='px-4 py-2 text-center border-b'>{job.applicants}</td>
                 <td>
-                  <input className='ml-4 scale-125' type="checkbox" />
+                <input
+                  onChange={() => changeJobVisibility(job._id)}
+                  className='ml-4 scale-125'
+                  type='checkbox'
+                    checked={job.visible}
+                  />
                 </td>
               </tr>
             ))}
@@ -43,7 +110,7 @@ const ManageJobs = () => {
 
       
     </div>
-  )
+  ):<Loading />
 }
 
 export default ManageJobs
